@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <include
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"/>
+
+        <ImageView
+                android:id="@+id/posterImage"
+                android:layout_width="166dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:elevation="5dp"
+                android:paddingTop="8dp"
+                android:layout_below="@id/toolbar"/>
+
+        <RelativeLayout
+                android:id="@+id/sub_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/posterImage"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <TextView
+                    android:id="@+id/title"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/voteAverage"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"/>
+
+            <TextView
+                    android:id="@+id/popularity"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/voteAverage"/>
+            <TextView
+                    android:id="@+id/releaseDate"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/popularity"/>
+
+        </RelativeLayout>
+
+        <TextView
+                android:id="@+id/overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sub_info"
+                android:layout_alignParentStart="true"
+                android:paddingTop="10dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
+
+    </RelativeLayout>
+</ScrollView>

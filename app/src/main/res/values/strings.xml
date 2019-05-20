@@ -3,4 +3,7 @@
     <string name="retry">Reintentar</string>
     <string name="menu_popular_movies">Popular Movies</string>
     <string name="menu_top_rated_movies">Top Rated Movies</string>
+    <string name="average_vote">Avg vote %1$s by %2$s users</string>
+    <string name="popularity">Popularity: %1$s</string>
+    <string name="release_date">Release date: %1$s</string>
 </resources>

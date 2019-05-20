@@ -1,5 +1,6 @@
 package com.example.themoviedb
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,6 +15,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.themoviedb.activities.MovieDetail
 import com.example.themoviedb.adapters.MoviesListAdapter
 import com.example.themoviedb.model.Movie
 
@@ -77,7 +79,9 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
     }
 
     override fun onMovieClick(v: View, position: Int) {
-        Toast.makeText(this, movies[position].movieName, Toast.LENGTH_SHORT).show()
+        val intent = Intent(baseContext, MovieDetail::class.java)
+        intent.putExtra("movie", movies[position])
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
