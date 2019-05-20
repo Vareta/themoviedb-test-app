@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
         viewModel.getMovieError().observe(this, Observer { error ->
             progress.visibility = View.GONE
             if (error) {
-                Toast.makeText(this, "Error consiguiendo peliculas", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.movie_error), Toast.LENGTH_SHORT).show()
                 retryButton.visibility = View.VISIBLE
             } else {
                 retryButton.visibility = View.GONE
