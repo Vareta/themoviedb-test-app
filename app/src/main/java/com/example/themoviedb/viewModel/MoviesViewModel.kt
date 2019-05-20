@@ -15,6 +15,9 @@ class MoviesViewModel : ViewModel() {
     private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
     private val movieError: MutableLiveData<Boolean> = MutableLiveData()
     private val service: MoviesService = MoviesService()
+    init {
+        fetchMovies()
+    }
 
     fun getMovies(): LiveData<List<Movie>> {
         return movies
@@ -35,6 +38,7 @@ class MoviesViewModel : ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
+                    Log.d("ERROR", e.toString())
                     movieError.value = true
                 }
             })
