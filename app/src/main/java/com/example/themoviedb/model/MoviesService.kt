@@ -20,8 +20,12 @@ class MoviesService {
         api = retrofit.create(MoviesApi::class.java)
     }
 
-    fun getPopularMovies() : Single<Response> {
+    fun getPopularMovies(): Single<Response> {
         return api.getPopularMovies(appId)
+    }
+
+    fun getTopRatedMovies(): Single<Response> {
+        return api.getTopRatedMovies(appId)
     }
 
     companion object {

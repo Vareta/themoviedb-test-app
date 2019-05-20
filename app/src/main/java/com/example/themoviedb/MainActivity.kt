@@ -2,11 +2,15 @@ package com.example.themoviedb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.lifecycle.ViewModelProviders
 import com.example.themoviedb.viewModel.MoviesViewModel
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +23,7 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
     private lateinit var viewModel: MoviesViewModel
     private lateinit var retryButton: Button
     private lateinit var progress: ProgressBar
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +33,9 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
         recyclerView = findViewById(R.id.list)
         retryButton = findViewById(R.id.retryButton)
         progress = findViewById(R.id.progress)
+        toolbar = findViewById(R.id.toolbar)
         viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        setSupportActionBar(toolbar)
 
         recyclerView.apply {
             this.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -37,8 +44,9 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
         observeViewModel()
     }
 
-    private fun observeViewModel() {
-        viewModel.getMovies().observe(this, Observer { movies ->
+    private fun observeViewModel(popular: Boolean = true) {
+        val requiredMovies: LiveData<List<Movie>> = if (popular) viewModel.getMovies() else viewModel.getMovies(false)
+        requiredMovies.observe(this, Observer { movies ->
             if (movies != null) {
                 this.movies.clear()
                 this.movies.addAll(movies)
@@ -70,5 +78,25 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.OnMovieListener {
 
     override fun onMovieClick(v: View, position: Int) {
         Toast.makeText(this, movies[position].movieName, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_activity_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.popular -> {
+            observeViewModel()
+            true
+        }
+        R.id.top_rated -> {
+            observeViewModel(false)
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 }
